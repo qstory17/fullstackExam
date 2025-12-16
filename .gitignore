@@ -1,0 +1,20 @@
+# IDE 설정 파일
+.idea/
+.vscode/
+*.iml
+
+# Node.js (Frontend)
+node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+.env
+.env.local
+
+# Java (Backend)
+backend/build/
+backend/out/
+backend/bin/
+backend/.gradle/
+*.class
+*.jar

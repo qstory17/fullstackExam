@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: guestbook-mysql
+    # 플랫폼 명시 (M1/M2 맥북 등에서의 호환성 이슈 방지)
+    platform: linux/amd64
+    environment:
+      MYSQL_ROOT_PASSWORD: mysecretpassword # 실습용 비밀번호 하드코딩 (나중엔 .env로 뺍니다)
+      MYSQL_DATABASE: guestbook
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    build: ./backend
+    container_name: guestbook-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    environment:
+      # 컨테이너 내부에서는 'localhost'가 아닌 서비스명 'mysql'로 접속해야 합니다.
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/guestbook?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: mysecretpassword
+
+  frontend:
+    build: ./frontend
+    container_name: guestbook-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      # Next.js 서버에서 백엔드로 요청할 때 사용할 주소
+      # 브라우저(클라이언트)에서 호출할 때는 이 변수가 아니라 public IP를 써야 할 수도 있습니다.
+      NEXT_PUBLIC_API_URL: http://backend:8080
+
+volumes:
+  mysql_data:
