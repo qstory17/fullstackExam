@@ -14,13 +14,13 @@ public class GuestbookController {
 
     private final GuestbookRepository repository;
 
-    // 조회 (Read)
+    // 조회
     @GetMapping
     public List<Guestbook> getAll() {
         return repository.findAll();
     }
 
-    // 등록 (Create)
+    // 등록
     @PostMapping
     public Guestbook create(@RequestBody Guestbook guestbook) {
         return repository.save(guestbook);
