@@ -20,7 +20,7 @@ public class Guestbook {
 
     private LocalDateTime createdAt;
 
-    // 데이터가 저장되기 전에 실행되어(포인트) 시간을 자동으로 넣음
+    // 데이터가 저장되기 전에 실행되어(포인트!) 시간을 자동으로 넣어주는 녀석
     @PrePersist
     public void prePersist() {
         this.createdAt = LocalDateTime.now();

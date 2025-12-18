@@ -4,12 +4,13 @@ services:
   mysql:
     image: mysql:8.0
     container_name: guestbook-mysql
-    # 플랫폼 명시 (M1/M2 맥북 등에서의 호환성 이슈 방지)
+    # 플랫폼 명시 arm64..?
     platform: linux/amd64
     environment:
       MYSQL_ROOT_PASSWORD: mysecretpassword # 실습용 비밀번호 하드코딩 (나중엔 .env로 뺍니다)
       MYSQL_DATABASE: guestbook
     ports:
+      #에러로 3307로 변경
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
@@ -22,7 +23,6 @@ services:
     depends_on:
       - mysql
     environment:
-      # 컨테이너 내부에서는 'localhost'가 아닌 서비스명 'mysql'로 접속해야 합니다.
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/guestbook?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: mysecretpassword
