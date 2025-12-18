@@ -3,14 +3,14 @@ server:
 
 spring:
   datasource:
-    #?? url: jdbc:mysql://localhost:3306/gue  stbook?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
-    #??
+    #기존주소 url: jdbc:mysql://localhost:3306/guestbook?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
+    #연동후 주소
     url: jdbc:mysql://${DB_HOST:localhost}:3306/guestbook?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
     username: root
-    password: root1234 # ??? ???? ??
+    password: root1234
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update # ??
-    show-sql: true     # ???? SQL ?? ??
+      ddl-auto: update
+    show-sql: true
